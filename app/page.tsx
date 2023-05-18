@@ -54,17 +54,32 @@ export default function Home() {
 
   }
 
+  async function handleSearch(e: React.FormEvent){
+    e.preventDefault();
+    console.log("query",query)
+    const response = await fetch(`api/character?name=${query}`, {method: "GET",  cache: 'no-store' })
+    const response_object = await response.json()
+    if(response.ok){
+      setResult(response_object.character_data)
+    }
+  }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-center font-mono text-sm lg:flex">
         <div className="text-center space-y-10">
           <h1 className="text-lg">Search Rick Morty Characters</h1>
-            <label htmlFor="search">Search:</label>
-            <input type="text" id="search" required onChange={handleChange}/>
-              {result && <Card result={result}/> }
+            <div className=''>
+              
+              <form onSubmit={handleSearch} className='flex flex-col border space-y-4 items-start'>
+              <label htmlFor="search">Enter a Character Name:</label>
+              <input type="text" id="search" required onChange={(e) => setQuery(e.target.value)} placeholder='Rick Sanchez' className='w-1/2'/>
+              <button type="submit" className='bg-yellow-200 shadow-lg rounded-lg p-2 hover:bg-yellow-500'>Search</button>
+              </form>
+            </div>
+                  {result && <Card result={result}/> }
+            </div>
         </div>
-      </div>
     </main>
   )
 }
