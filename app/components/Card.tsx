@@ -1,9 +1,20 @@
 import Link from "next/link";
 import { Character } from "../page";
 import Image from 'next/image'
+import { useEffect, useState } from "react";
 
 interface CardProps {
   result: Character;
+}
+
+export interface Episode{
+  id: number;
+  seasonEpisode: string;
+  name: string
+}
+
+export interface Episodes{
+  results: Episode[];
 }
 
 function aliveOrDead(status: string){
@@ -16,16 +27,40 @@ function aliveOrDead(status: string){
   }
 }
 
+
 export default function Card({result}: CardProps) {
+
+  // const [episodeNumbers, setEpisodeNumbers] = useState<string>("");
+  const [episodes, setEpisodes] = useState([{}]);
+
+  useEffect(() => {
+    async function fetchEpisodes(){
+      const lastNumbers = result.episodes.map(url => url.split('/').pop());
+      const epiNumbers = lastNumbers.join(",").trim()
+      const response =  await fetch(`api/episode?episode_numbers=${epiNumbers}`)
+
+      if(response.ok){
+        const json_response = await  response.json()
+        const arrayEpisodes = json_response.data
+        setEpisodes(arrayEpisodes)
+        console.log(arrayEpisodes,"interal response", episodes);
+      }
+    }
+    fetchEpisodes();
+  }, [result]);
+
+  
   return(
-    <div className='flex flex-col item-center bg-white h-1/2 rounded-lg shadow border border-gray-800'>
+    <div className='flex flex-col item-center bg-white h-1/2  rounded-lg shadow border border-gray-800'>
+      <div className='flex items-center justify-center m-4'>
       <Image
         src={result!.image}
-        width={500}
-        height={500}
+        width={300}
+        height={300}
         alt="Picture of the author"
-        className='object-fill w-full rounded-t-lg h-96'
+        className='object-fill rounded-full'
       />
+      </div>
       <div className='flex flex-col justify-between p-4 leading-normal'>
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{result!.name}</h5>
         <div className='flex justify-center'>
@@ -56,14 +91,19 @@ export default function Card({result}: CardProps) {
             2. Use this api to list episode name and number https://rickandmortyapi.com/api/episode/10,28
             3. Onclick redirect to new page which fetch all the character in that episode
           */}
-          
-          {/* {
-          result!.episodes.map((episode,index) => (
-            <div className="">
-               {episode}
-            </div>
-          ))
-          } */}
+             {
+             episodes.length > 0 && (
+              <div className="grid grid-cols-2 gap-3 h-1/2 w-full">
+                {episodes.map((episode, index) => (
+                  <div key={index} className="flex flex-row justify-center shadow-lg h-20 pt-4 px-2 hover:scale-110">
+                    <p></p>
+                    <Link href={`/episode/${episode.id}`}>
+                      {episode.episode}: {episode.name}</Link>
+                  </div>
+                ))}
+                
+              </div>
+            )} 
         </div>
 
       </div>

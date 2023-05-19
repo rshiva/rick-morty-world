@@ -72,35 +72,31 @@ export default function Home() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-center font-mono text-sm lg:flex">
-        <div className="text-center space-y-10">
-          <h1 className="text-2xl font-light">Search Rick Morty Characters</h1>
-            <div className=''>
-              
-              <form onSubmit={handleSearch}>
-              <div className='flex flex-col space-y-4 items-start'>
-                <label htmlFor="search">Enter a Character Name:</label>
-                <input type="text" id="search" required onChange={(e) => setQuery(e.target.value)} placeholder='Rick Sanchez' className='w-full h-1/2 shadow-sm border border-slate-300 text-sm p-2 rounded-md'/>
-              </div>
-              <div className='items-center mt-4'>
-                <button type="submit" className='bg-yellow-200 shadow-lg rounded-lg p-2 hover:bg-yellow-500'>Search</button>
-              </div>
-              </form>
-            </div>
-            {state.loading ? (
-              <></>
-              ): state.data.name ? (
-                <Card result={state.data}/> 
+    <>
+      <h1 className="text-2xl font-light mb-10"><span className='text-[#01adc5]'>Rick & Morty</span> Characters</h1>
+        <form onSubmit={handleSearch} className='pl-5 flex flex-col items-start w-[50%]'>
+          <div className='flex flex-col space-y-4 items-start w-[75%]'>
+            <label htmlFor="search">Enter a Character Name:</label>
+            <input type="text" id="search" required onChange={(e) => setQuery(e.target.value)} placeholder='Rick Sanchez' className='w-full h-1/2 shadow-sm border border-slate-300 text-sm p-2 rounded-md'/>
+          </div>
+          <div className='items-center m-10' >
+            <button type="submit" className='bg-[#01adc5] shadow-lg rounded-lg p-2 hover:bg-yellow-500'>Search</button>
+          </div>
+        </form>
 
-              ) : (
-                <h1>Character Not found</h1>
-              )
-            }
-                  
-            </div>
+        <div className='w-[55%]'>
+          {state.loading ? (
+            <></>
+            ): state.data.name ? (
+              <Card result={state.data}/> 
+
+            ) : (
+              <h1>Character Not found</h1>
+            )
+          }
         </div>
-    </main>
+        
+    </>
   )
 }
 
