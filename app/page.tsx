@@ -86,17 +86,17 @@ export default function Home() {
       </RoughNotation>
       </span> 
       Characters</h1>
-        <form onSubmit={handleSearch} className='pl-5 flex flex-col items-start w-[50%]'>
-          <div className='flex flex-col space-y-4 items-start w-[75%]'>
+        <form onSubmit={handleSearch} className='pl-5 flex flex-col lg:items-center w-[50%] xs:w-full'>
+          <div className='lg:flex lg:flex-col space-y-4 lg:items-center w-[75%]'>
             <label htmlFor="search">Enter a Character Name:</label>
-            <input type="text" id="search" required onChange={(e) => setQuery(e.target.value)} placeholder='Rick Sanchez' className='w-full h-1/2 shadow-sm border border-slate-300 text-sm p-2 rounded-md'/>
+            <input type="text" id="search" required onChange={(e) => setQuery(e.target.value)} placeholder='Rick Sanchez' className='lg:w-[50%] h-1/2 shadow-sm border border-slate-300 text-sm p-2 rounded-md xs:w-full'/>
           </div>
           <div className='flex justify-center w-1/2 m-10' >
             <button type="submit" className='bg-[#01adc5] shadow-lg rounded-lg p-2 hover:bg-[#fff176]'>Search</button>
           </div>
         </form>
 
-        <div className='w-[55%]'>
+        <div className='w-[55%] xs:w-[65%] md:w-[55%] lg:w-[55%]'>
           {state.loading ? (
             <></>
             ): state.data.name ? (

@@ -20,8 +20,8 @@ export default function RootLayout({
         <nav className='p-6'>
         <Link href="/" className="bg-yellow-200 border border-gray-500 p-2  rounded-md">Home</Link>
         </nav>
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
-          <div className="z-10 w-full max-w-5xl items-center justify-center font-mono text-sm lg:flex">
+        <main className="flex min-h-screen flex-col items-center justify-between p-2">
+          <div className="z-10 w-full items-center justify-center font-mono text-sm lg:flex xs:w-[150%] lg:w-[80%] md:w-[80%]">
           <div className="text-center space-y-10 flex flex-col items-center w-full">
             {children}  
             </div>

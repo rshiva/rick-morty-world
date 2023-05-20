@@ -33,19 +33,19 @@ import { RoughNotation } from "react-rough-notation";
   return(
     <>
       
-      <div className=" flex flex-col items-center m-16">
+      <div className=" flex flex-col items-center m-16 xs:w-[80%]">
         {episode.name && 
-        <h1 className="text-3xl">Characters from Episode:
+        <h1 className="text-3xl xs:text-sm">Characters from Episode:
         <br/>
-        <RoughNotation type="highlight" show={true} color="#fff176" className="px-2 text-4xl"> 
+        <RoughNotation type="highlight" show={true} color="#fff176" className="px-2 text-4xl xs:text-sm sm:bold"> 
           {episode.name} 
         </RoughNotation>
          - {episode.episode} </h1>
         }
-        <div className="grid grid-cols-4 gap-10 p-5" >
+        <div className="lg:grid lg:grid-cols-4 lg:gap-10 lg:p-5 xs:flex xs:flex-col" >
           {characters.map((character,index) => {
             return (
-            <div className="flex flex-col  items-center" key={index}>
+            <div className="flex flex-col items-center" key={index} >
               
               <a href={`/character?name=${character.name}`}>
 
@@ -53,8 +53,8 @@ import { RoughNotation } from "react-rough-notation";
                   src={character!.image}
                   width={500}
                   height={500}
-                  alt={characterZ}
-                  className='object-cover rounded-full hover:scale-90'
+                  alt={character.name}
+                  className='object-cover rounded-full hover:scale-90 xs:rounded-full xs:w-[85%] my-4'
                 />
                 </a>
               <div>{character.name}</div> 

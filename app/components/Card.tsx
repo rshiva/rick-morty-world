@@ -94,10 +94,11 @@ export default function Card({result}: CardProps) {
              episodes.length > 0 && (
               <div className="grid grid-cols-2 gap-3 h-1/2 w-full">
                 {episodes.map((episode, index) => (
-                  <div key={index} className="flex flex-row justify-center shadow-lg h-20 pt-4 px-2 hover:scale-110">
-                    <p></p>
-                    <Link href={`/episode/${episode.id}`}  className="sm:text-xs">
+                  <div key={index} className="flex flex-row justify-center shadow-lg h-20 pt-2 px-2 hover:scale-110">
+                    <p className="lg:text-2xl xs:text-xs">
+                      <Link href={`/episode/${episode.id}`}  className="sm:text-xs lg:text-lg">
                       {episode.episode}: {episode.name}</Link>
+                    </p>
                   </div>
                 ))}
                 

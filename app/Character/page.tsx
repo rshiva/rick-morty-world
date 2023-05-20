@@ -18,7 +18,7 @@ export default function Page({searchParams}: {searchParams: {name: string}}) {
   
   return(
     <>
-      <div className="w-1/2">
+      <div className="w-1/2  xs:w-[80%] md:w-[55%] lg:w-[55%]">
         <Card result={character}/> 
       </div>
     </>
