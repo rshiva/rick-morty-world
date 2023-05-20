@@ -43,7 +43,6 @@ export default function Card({result}: CardProps) {
         const json_response = await  response.json()
         const arrayEpisodes = json_response.data
         setEpisodes(arrayEpisodes)
-        console.log(arrayEpisodes,"interal response", episodes);
       }
     }
     fetchEpisodes();
@@ -51,7 +50,7 @@ export default function Card({result}: CardProps) {
 
   
   return(
-    <div className='flex flex-col item-center bg-white h-1/2  rounded-lg shadow border border-gray-800'>
+    <div className='flex flex-col item-center bg-white h-1/2 rounded-lg shadow border border-gray-800'>
       <div className='flex items-center justify-center m-4'>
       <Image
         src={result!.image}
@@ -97,7 +96,7 @@ export default function Card({result}: CardProps) {
                 {episodes.map((episode, index) => (
                   <div key={index} className="flex flex-row justify-center shadow-lg h-20 pt-4 px-2 hover:scale-110">
                     <p></p>
-                    <Link href={`/episode/${episode.id}`}>
+                    <Link href={`/episode/${episode.id}`}  className="sm:text-xs">
                       {episode.episode}: {episode.name}</Link>
                   </div>
                 ))}

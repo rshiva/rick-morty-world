@@ -2,6 +2,13 @@
 
 import { useEffect, useReducer, useState } from 'react';
 import Card from './components/Card';
+import { RoughNotation } from "react-rough-notation";
+import localFont from 'next/font/local';
+
+const myFont = localFont({
+  src: '../public/get_schwifty.ttf',
+  display: 'swap',
+});
 
 export interface Character{
   name: string;
@@ -73,14 +80,19 @@ export default function Home() {
 
   return (
     <>
-      <h1 className="text-2xl font-light mb-10"><span className='text-[#01adc5]'>Rick & Morty</span> Characters</h1>
+      <h1 className="text-xl font-light mb-10"><span className='text-[#01adc5]'>
+      <RoughNotation type="highlight" show={true} color="#fff176" className={`px-2  text-4xl ${myFont.className}`}>
+      Rick & Morty
+      </RoughNotation>
+      </span> 
+      Characters</h1>
         <form onSubmit={handleSearch} className='pl-5 flex flex-col items-start w-[50%]'>
           <div className='flex flex-col space-y-4 items-start w-[75%]'>
             <label htmlFor="search">Enter a Character Name:</label>
             <input type="text" id="search" required onChange={(e) => setQuery(e.target.value)} placeholder='Rick Sanchez' className='w-full h-1/2 shadow-sm border border-slate-300 text-sm p-2 rounded-md'/>
           </div>
-          <div className='items-center m-10' >
-            <button type="submit" className='bg-[#01adc5] shadow-lg rounded-lg p-2 hover:bg-yellow-500'>Search</button>
+          <div className='flex justify-center w-1/2 m-10' >
+            <button type="submit" className='bg-[#01adc5] shadow-lg rounded-lg p-2 hover:bg-[#fff176]'>Search</button>
           </div>
         </form>
 
@@ -99,6 +111,5 @@ export default function Home() {
     </>
   )
 }
-
 
 // 

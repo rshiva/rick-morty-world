@@ -5,7 +5,6 @@ import type {Episodes, Episode} from "../../components/Card"
 export async function GET(request : Request){
   const {searchParams} = new URL(request.url);
   const episode_numbers = searchParams.get("episode_numbers")
-  console.log("episode_numbers",episode_numbers)
   const response = await fetch(`https://rickandmortyapi.com/api/episode/${episode_numbers}`)
   if(response.ok){
 

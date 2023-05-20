@@ -2,7 +2,7 @@
 import { Suspense, useEffect, useState } from "react"
 import Image from 'next/image'
 import Link from "next/link";
-// import Loading from "./loading";
+import { RoughNotation } from "react-rough-notation";
   
   
   export default function Page({ params }: { params: { slug: string }}) {
@@ -29,47 +29,40 @@ import Link from "next/link";
       
     }, [params.slug])
 
-    function Loading() {
-      // You can add any UI inside Loading, including a Skeleton.
-      return (
-        <div className=" flex flex-col items-center m-16">
-          <h1 className="text-4xl "> </h1>
-          <Link href="/" className="bg-yellow-200 border border-gray-500 p-2  rounded-md">Home</Link>
-          <div className="grid grid-cols-4 gap-10 p-5" >
-            {[...Array(10)].map((_, step) => (
-            <div className="flex flex-col  items-center bg-gray-300 " key={step} ></div>
-            ))}
-          </div>
-        </div>
-      );
-    }
-
     
   return(
-    <Suspense fallback={<Loading/>}>
+    <>
+      
       <div className=" flex flex-col items-center m-16">
         {episode.name && 
-        <h1 className="text-4xl ">Characters from {episode.name} {episode.episode} </h1>
+        <h1 className="text-3xl">Characters from Episode:
+        <br/>
+        <RoughNotation type="highlight" show={true} color="#fff176" className="px-2 text-4xl"> 
+          {episode.name} 
+        </RoughNotation>
+         - {episode.episode} </h1>
         }
-        <Link href="/" className="bg-yellow-200 border border-gray-500 p-2  rounded-md">Home</Link>
         <div className="grid grid-cols-4 gap-10 p-5" >
           {characters.map((character,index) => {
             return (
             <div className="flex flex-col  items-center" key={index}>
-              <Link href={`/api/character/name=${character.name}`}>{character.name}</Link>
-              <Image
-                src={character!.image}
-                width={500}
-                height={500}
-                alt="Character Image"
-                className='object-cover rounded-full hover:scale-90'
-              />
+              
+              <a href={`/character?name=${character.name}`}>
+
+                <Image
+                  src={character!.image}
+                  width={500}
+                  height={500}
+                  alt={characterZ}
+                  className='object-cover rounded-full hover:scale-90'
+                />
+                </a>
               <div>{character.name}</div> 
             </div>
             );
           })}
         </div>
       </div>
-      </Suspense>
+    </>
   )
 }
