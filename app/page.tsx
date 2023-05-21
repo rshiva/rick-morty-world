@@ -40,8 +40,12 @@ const initialState: State = {
   },
 };
 
+type Action = 
+| { type: 'FETCH_SUCCESS', payload: Character }
+| { type: 'FETCH_ERROR', error: "Character Not found" };
 
-function reducer(state, action) {
+
+function reducer(state: State, action: Action) {
   switch (action.type) {
     case "FETCH_SUCCESS":
       return{
@@ -53,7 +57,7 @@ function reducer(state, action) {
       return{
         loading: false,
         error: action.error || "Not found",
-        data: {}
+        data: initialState.data
       }
     default:
       return state;
@@ -86,10 +90,10 @@ export default function Home() {
       </RoughNotation>
       </span> 
       Characters</h1>
-        <form onSubmit={handleSearch} className='pl-5 flex flex-col lg:items-center w-[50%] xs:w-full'>
+        <form onSubmit={handleSearch} className='pl-5 flex flex-col lg:items-center w-[50%] xs:w-full xs:items-center'>
           <div className='lg:flex lg:flex-col space-y-4 lg:items-center w-[75%]'>
             <label htmlFor="search">Enter a Character Name:</label>
-            <input type="text" id="search" required onChange={(e) => setQuery(e.target.value)} placeholder='Rick Sanchez' className='lg:w-[50%] h-1/2 shadow-sm border border-slate-300 text-sm p-2 rounded-md xs:w-full'/>
+            <input type="text" id="search" required onChange={(e) => setQuery(e.target.value)} placeholder='Rick Sanchez' className='lg:w-[50%] h-1/2 shadow-sm border border-slate-300 text-sm p-2 rounded-md xs:w-[75%]'/>
           </div>
           <div className='flex justify-center w-1/2 m-10' >
             <button type="submit" className='bg-[#01adc5] shadow-lg rounded-lg p-2 hover:bg-[#fff176]'>Search</button>

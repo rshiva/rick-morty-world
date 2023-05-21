@@ -9,12 +9,12 @@ interface CardProps {
 
 export interface Episode{
   id: number;
-  seasonEpisode: string;
+  episode: string;
   name: string
 }
 
 export interface Episodes{
-  results: Episode[];
+  data: Episode[];
 }
 
 function aliveOrDead(status: string){
@@ -31,7 +31,7 @@ function aliveOrDead(status: string){
 export default function Card({result}: CardProps) {
 
   // const [episodeNumbers, setEpisodeNumbers] = useState<string>("");
-  const [episodes, setEpisodes] = useState([{}]);
+  const [episodes, setEpisodes] = useState<Episodes>({ data: [] });
 
   useEffect(() => {
     async function fetchEpisodes(){
@@ -41,11 +41,13 @@ export default function Card({result}: CardProps) {
 
       if(response.ok){
         const json_response = await  response.json()
-        const arrayEpisodes = json_response.data
+        const arrayEpisodes: Episodes = { data: json_response.data };
         setEpisodes(arrayEpisodes)
       }
     }
-    fetchEpisodes();
+    if (result.episodes && result.episodes.length > 0) {
+      fetchEpisodes();
+    }
   }, [result]);
 
   
@@ -91,9 +93,9 @@ export default function Card({result}: CardProps) {
             3. Onclick redirect to new page which fetch all the character in that episode
           */}
              {
-             episodes.length > 0 && (
+             episodes.data.length > 0 && (
               <div className="grid grid-cols-2 gap-3 h-1/2 w-full">
-                {episodes.map((episode, index) => (
+                {episodes.data.map((episode: Episode, index: number) => (
                   <div key={index} className="flex flex-row justify-center shadow-lg h-20 pt-2 px-2 hover:scale-110">
                     <p className="lg:text-2xl xs:text-xs">
                       <Link href={`/episode/${episode.id}`}  className="sm:text-xs lg:text-lg">

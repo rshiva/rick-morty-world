@@ -9,10 +9,7 @@ export async function GET(request : Request){
   if(response.ok){
 
     const episodes = await response.json();
-    console.log("external response", episodes);
     const episodeArray = Array.isArray(episodes) ? episodes : [episodes];
-
-
     return NextResponse.json({ data: episodeArray }, { status: 200 });
   }else{
     return NextResponse.json({error: "something went wrong"},{status: 500})

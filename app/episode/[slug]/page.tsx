@@ -1,13 +1,19 @@
 'use client';
 import { Suspense, useEffect, useState } from "react"
 import Image from 'next/image'
-import Link from "next/link";
 import { RoughNotation } from "react-rough-notation";
+import { Character } from "@/app/page";
   
+// { id: 17, name: "The Ricks Must Be Crazy", air_date: "August 30, 2015", episode: "S02E06", characters: (19) […], url: "https://rickandmortyapi.com/api/episode/17", created: "2017-11-10T12:56:35.467Z" }
+
+interface EpisodeType {
+  name: string;
+  episode: string;
+} 
   
   export default function Page({ params }: { params: { slug: string }}) {
-    const [characters, setCharacters] = useState([{}]);
-    const [episode, setEpisode] = useState({})
+    const [characters, setCharacters] = useState<Character[]>([]);
+    const [episode, setEpisode] = useState<EpisodeType | undefined>(undefined);
 
     useEffect(() => {
       async function fetchEpisode(){
@@ -16,7 +22,7 @@ import { RoughNotation } from "react-rough-notation";
           const jsonResponse = await  response.json()
           const arrayEpisode = jsonResponse.data
           setEpisode(arrayEpisode[0])
-          const characters = arrayEpisode[0].characters.map(character => character.split('/').pop());
+          const characters = arrayEpisode[0].characters.map((c: string) => c.split('/').pop());
           const characterNumbers = characters.join(",").trim()
           const charactersListResponse =  await fetch(`https://rickandmortyapi.com/api/character/${characterNumbers}`)
           if(charactersListResponse.ok){
@@ -32,9 +38,9 @@ import { RoughNotation } from "react-rough-notation";
     
   return(
     <>
-      
+      {episode?.name && characters.length > 0 && 
       <div className=" flex flex-col items-center m-16 xs:w-[80%]">
-        {episode.name && 
+        {episode?.name && 
         <h1 className="text-3xl xs:text-sm">Characters from Episode:
         <br/>
         <RoughNotation type="highlight" show={true} color="#fff176" className="px-2 text-4xl xs:text-sm sm:bold"> 
@@ -50,7 +56,7 @@ import { RoughNotation } from "react-rough-notation";
               <a href={`/character?name=${character.name}`}>
 
                 <Image
-                  src={character!.image}
+                  src={character?.image}
                   width={500}
                   height={500}
                   alt={character.name}
@@ -63,6 +69,7 @@ import { RoughNotation } from "react-rough-notation";
           })}
         </div>
       </div>
+      }
     </>
   )
 }
