@@ -84,8 +84,9 @@ export default function Home() {
 
   return (
     <>
-      <h1 className="text-xl font-light mb-10"><span className='text-[#01adc5]'>
-      <RoughNotation type="highlight" show={true} color="#fff176" className={`px-2  text-4xl ${myFont.className}`}>
+      <h1 className="text-xl font-light mb-10">
+      <span className={`text-[#01adc5] px-2  text-4xl ${myFont.className}`}>
+      <RoughNotation type="highlight" show={true} color="#fff176">
       Rick & Morty
       </RoughNotation>
       </span> 

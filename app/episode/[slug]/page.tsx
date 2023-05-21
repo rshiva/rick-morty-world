@@ -43,9 +43,11 @@ interface EpisodeType {
         {episode?.name && 
         <h1 className="text-3xl xs:text-sm">Characters from Episode:
         <br/>
-        <RoughNotation type="highlight" show={true} color="#fff176" className="px-2 text-4xl xs:text-sm sm:bold"> 
-          {episode.name} 
-        </RoughNotation>
+        <div className="px-2 text-4xl xs:text-sm sm:bold">
+          <RoughNotation type="highlight" show={true} color="#fff176"> 
+            {episode.name} 
+          </RoughNotation>
+        </div>
          - {episode.episode} </h1>
         }
         <div className="lg:grid lg:grid-cols-4 lg:gap-10 lg:p-5 xs:flex xs:flex-col" >
