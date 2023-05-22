@@ -44,6 +44,7 @@ export default function Card({result}: CardProps) {
         const arrayEpisodes: Episodes = { data: json_response.data };
         setEpisodes(arrayEpisodes)
       }
+      console.log("-->",result.image)
     }
     if (result.episodes && result.episodes.length > 0) {
       fetchEpisodes();
@@ -54,13 +55,11 @@ export default function Card({result}: CardProps) {
   return(
     <div className='flex flex-col item-center bg-white h-1/2 rounded-lg shadow border border-gray-800'>
       <div className='flex items-center justify-center m-4'>
-      <Image
-        src={result!.image}
-        width={300}
-        height={300}
-        alt="Picture of the author"
-        className='object-fill rounded-full'
-      />
+      {result.image && (
+        <div className='flex items-center justify-center m-4'>
+          <Image src={result.image} width={300} height={300} alt='Picture of the author' className='object-fill rounded-full' />
+        </div>
+      )}
       </div>
       <div className='flex flex-col justify-between p-4 leading-normal'>
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{result!.name}</h5>
